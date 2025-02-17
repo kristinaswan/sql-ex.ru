@@ -1,4 +1,4 @@
-# Решения заданий интерактивного тренажера по SQL
+# Решения упражнений по SQL
 Упражнения на оператор SELECT: обучающий этап
 
 Ссылка на задания SQL тренажёра:  
@@ -19,3 +19,44 @@ FROM
 WHERE
   price < 500;
 ```
+
+</details>
+
+Задание 2: (Serge I: 2002-09-21)\
+Найдите производителей принтеров.\
+Вывести: maker\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=2)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT 
+  DISTINCT maker 
+FROM 
+  Product
+WHERE
+  type = 'printer';
+```
+
+</details>
+
+Задание 3: (Serge I: 2002-09-30)\
+Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол.\
+([сайт])(https://www.sql-ex.ru/learn_exercises.php?LN=3)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT 
+  model, ram, screen 
+FROM 
+  laptop
+WHERE
+  price > 1000;
+```
+
+</details>
+
+Задание 4: 
+
+
