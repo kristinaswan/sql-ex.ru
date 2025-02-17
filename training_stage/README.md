@@ -91,4 +91,129 @@ WHERE
 
 </details>
 
+Задание 6: (Serge I: 2002-10-28)\
+Для каждого производителя, выпускающего ПК-блокноты c объёмом жесткого диска не менее 10 Гбайт, найти скорости таких ПК-блокнотов.\
+Вывод: производитель, скорость.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=6)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  DISTINCT maker, speed
+FROM
+  laptop
+  JOIN product ON laptop.model = product.model
+WHERE
+  hd >= 10 AND type = 'laptop';
+```
+
+</details>
+
+Задание 7: (Serge I: 2002-11-02)\
+Найдите номера моделей и цены всех имеющихся в продаже продуктов (любого типа) производителя B (латинская буква).\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=7)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  DISTINCT laptop.model, price
+FROM
+  laptop
+  JOIN product ON laptop.model = product.model
+WHERE
+  maker = 'B'
+UNION
+SELECT
+  DISTINCT printer.model, price
+FROM
+  printer
+  JOIN product ON printer.model = product.model
+WHERE
+  maker = 'B'
+UNION
+SELECT
+  DISTINCT pc.model, price
+FROM
+  pc
+  JOIN product ON pc.model = product.model
+WHERE
+  maker = 'B';
+```
+
+</details>
+
+Задание 8: (Serge I: 2003-02-03)\
+Найдите производителя, выпускающего ПК, но не ПК-блокноты.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=8)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  DISTINCT maker
+FROM
+  product
+WHERE
+  type = 'PC'
+EXCEPT
+SELECT
+  DISTINCT maker
+FROM
+  product
+WHERE
+  type = 'laptop';
+```
+
+</details>
+
+Задание 9: (Serge I: 2002-11-02)\
+Найдите производителей ПК с процессором не менее 450 Мгц.\
+Вывести: Maker\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=9)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  DISTINCT maker
+FROM
+  pc
+  JOIN product ON pc.model = product.model
+WHERE
+  speed >= 450;
+```
+
+</details>
+
+Задание 10: (Serge I: 2002-09-23)\
+Найдите модели принтеров, имеющих самую высокую цену.\
+Вывести: model, price\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=10)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  printer.model, price
+FROM
+  printer
+  JOIN product ON printer.model = product.model
+WHERE
+  price IN (
+            SELECT
+              MAX(price)
+            FROM
+              printer)
+ORDER BY
+  price DESC;
+```
+
+</details>
+
+Задание 11: 
+
+
+
 
