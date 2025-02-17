@@ -42,7 +42,7 @@ WHERE
 
 Задание 3: (Serge I: 2002-09-30)\
 Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол.\
-([сайт])(https://www.sql-ex.ru/learn_exercises.php?LN=3)
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=3)
 
 <details><summary>Решение</summary>
 
@@ -59,7 +59,7 @@ WHERE
 
 Задание 4: (Serge I: 2002-09-21)\
 Найдите все записи таблицы Printer для цветных принтеров.\
-([сайт])(https://www.sql-ex.ru/learn_exercises.php?LN=4)
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=4)
 
 <details><summary>Решение</summary>
 
@@ -76,7 +76,7 @@ WHERE
 
 Задание 5: (Serge I: 2002-09-30)\
 Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.\
-([сайт])(https://www.sql-ex.ru/learn_exercises.php?LN=5)
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=5)
 
 <details><summary>Решение</summary>
 
