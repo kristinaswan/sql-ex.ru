@@ -57,6 +57,38 @@ WHERE
 
 </details>
 
-Задание 4: 
+Задание 4: (Serge I: 2002-09-21)\
+Найдите все записи таблицы Printer для цветных принтеров.\
+([сайт])(https://www.sql-ex.ru/learn_exercises.php?LN=4)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  * 
+FROM
+  printer
+WHERE
+  color = 'y';
+```
+
+</details>
+
+Задание 5: (Serge I: 2002-09-30)\
+Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.\
+([сайт])(https://www.sql-ex.ru/learn_exercises.php?LN=5)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  model, speed, hd
+FROM
+  pc
+WHERE
+  cd IN ('12x', '24x') AND price < 600;
+```
+
+</details>
 
 
