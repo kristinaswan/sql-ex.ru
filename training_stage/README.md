@@ -212,8 +212,90 @@ ORDER BY
 
 </details>
 
-Задание 11: 
+Задание 11: (Serge I: 2002-11-02)\
+Найдите среднюю скорость ПК.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=11)
 
+<details><summary>Решение</summary>
 
+```sql
+SELECT
+  AVG(speed)
+FROM
+  pc
+```
 
+</details>
 
+Задание 12: (Serge I: 2002-11-02)\
+Найдите среднюю скорость ПК-блокнотов, цена которых превышает 1000 дол.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=12)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  AVG(speed)
+FROM
+  laptop
+WHERE
+  price > 1000
+```
+
+</details>
+
+Задание 13: (Serge I: 2002-11-02)\
+Найдите среднюю скорость ПК, выпущенных производителем A.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=13)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  AVG(speed)
+FROM
+  pc
+  JOIN product ON pc.model = product.model
+WHERE
+  maker = 'A'
+```
+
+</details>
+
+Задание 14: (Serge I: 2002-11-05)\
+Найдите класс, имя и страну для кораблей из таблицы Ships, имеющих не менее 10 орудий.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=14)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  Ships.class, name, country
+FROM
+  Ships
+  JOIN Classes ON Ships.class = Classes.class
+WHERE
+  numGuns >= 10
+```
+
+</details>
+
+Задание 15: (Serge I: 2003-02-03)\
+Найдите размеры жестких дисков, совпадающих у двух и более PC.\
+Вывести: HD\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=15)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  hd
+FROM
+  pc
+GROUP BY
+  hd
+HAVING
+  COUNT(model) >= 2
+```
+
+</details>
