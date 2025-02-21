@@ -336,13 +336,181 @@ WHERE
 
 </details>
 
-Задание 18: \
-[(сайт)]()
+Задание 18: (Serge I: 2003-02-03)\
+Найдите производителей самых дешевых цветных принтеров.\
+Вывести: maker, price\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=18)
 
 <details><summary>Решение</summary>
 
 ```sql
+SELECT
+  DISTINCT product.maker, printer.price
+FROM
+  product, printer
+WHERE
+  product.model = printer.model AND color = 'y' AND price IN (SELECT MIN(price) FROM printer WHERE printer.color = 'y')
+```
 
+</details>
+
+Задание 19: (Serge I: 2003-02-13)\
+Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов.\
+Вывести: maker, средний размер экрана.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=19)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  maker, AVG(screen)
+FROM
+  product
+  JOIN laptop ON product.model = laptop.model
+WHERE
+  laptop.model IN (SELECT model FROM product)
+GROUP BY
+  maker
+```
+
+</details>
+
+Задание 20: (Serge I: 2003-02-13)\
+Найдите производителей, выпускающих по меньшей мере три различных модели ПК.\
+Вывести: Maker, число моделей ПК.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=20)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  maker, COUNT(model) AS count_model
+FROM
+  product
+WHERE
+  type = 'pc'
+GROUP BY
+  maker
+HAVING
+  COUNT(model) > 2
+```
+
+</details>
+
+Задание 21: (Serge I: 2003-02-13)\
+Найдите максимальную цену ПК, выпускаемых каждым производителем, у которого есть модели в таблице PC.\
+Вывести: maker, максимальная цена.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=21)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  maker, MAX(price)
+FROM
+  product
+  JOIN pc ON product.model = pc.model
+WHERE
+  product.model IN (SELECT model FROM pc)
+GROUP BY
+  maker
+```
+
+</details>
+
+Задание 22: (Serge I: 2003-02-13)\
+Для каждого значения скорости ПК, превышающего 600 МГц, определите среднюю цену ПК с такой же скоростью.\
+Вывести: speed, средняя цена.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=22)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  speed, AVG(price)
+FROM
+  pc
+WHERE
+  speed > 600
+GROUP BY
+  speed
+```
+
+</details>
+
+Задание 23: (Serge I: 2003-02-14)\
+Найдите производителей, которые производили бы как ПК со скоростью не менее 750 МГц, так и ПК-блокноты со скоростью не менее 750 МГц.\
+Вывести: Maker\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=23)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  maker
+FROM
+  product
+  JOIN pc ON product.model = pc.model
+WHERE
+  type = 'pc' AND pc.speed >= 750
+INTERSECT
+SELECT
+  maker
+FROM
+  product
+  JOIN laptop ON product.model = laptop.model
+WHERE
+  type = 'laptop' AND laptop.speed >= 750
+```
+
+</details>
+
+Задание 24: (Serge I: 2003-02-03)\
+Перечислите номера моделей любых типов, имеющих самую высокую цену по всей имеющейся в базе данных продукции.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=24)
+
+<details><summary>Решение</summary>
+
+```sql
+WITH tables AS
+(SELECT
+  model, price
+FROM
+  laptop
+UNION
+SELECT
+  model, price
+FROM
+  printer
+UNION
+SELECT
+  model, price
+FROM
+  pc)
+SELECT
+  model
+FROM
+  tables
+WHERE
+  price IN (SELECT MAX(price) FROM tables)
+```
+
+</details>
+
+Задание 25: (Serge I: 2003-02-14)\
+Найдите производителей принтеров, которые производят ПК с наименьшим объемом RAM и с самым быстрым процессором среди всех ПК, имеющих наименьший объем RAM.\
+Вывести: Maker\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=25)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  DISTINCT maker
+FROM
+  product
+WHERE
+  model IN (SELECT model FROM pc WHERE ram = (SELECT MIN(ram) FROM pc) AND speed = (SELECT MAX(speed) FROM pc WHERE ram = (SELECT MIN(ram) FROM pc))) AND maker IN (SELECT maker FROM product WHERE type='printer')
 ```
 
 </details>
@@ -379,3 +547,15 @@ WHERE
 ```
 
 </details>
+
+Задание : \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
