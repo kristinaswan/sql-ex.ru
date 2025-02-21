@@ -299,3 +299,83 @@ HAVING
 ```
 
 </details>
+
+Задание 16: (Serge I: 2003-02-03)\
+Найдите пары моделей PC, имеющих одинаковые скорость и RAM. В результате каждая пара указывается только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером, модель с меньшим номером, скорость и RAM.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=16)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  DISTINCT a.model, b.model, a.speed, a.ram
+FROM
+  pc AS a, pc AS b
+WHERE
+  a.speed = b.speed AND a.ram = b.ram AND a.model > b.model
+```
+
+</details>
+
+Задание 17: (Serge I: 2003-02-03)\
+Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК.\
+Вывести: type, model, speed\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=17)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT
+  DISTINCT product.type, laptop.model, speed
+FROM
+  product
+  JOIN laptop ON product.model = laptop.model
+WHERE
+  speed < ALL (SELECT speed FROM pc)
+```
+
+</details>
+
+Задание 18: \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+Задание : \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+Задание : \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+Задание : \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
