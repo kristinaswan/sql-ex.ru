@@ -567,7 +567,152 @@ FROM
 
 </details>
 
-Задание 27: \
+Задание 27: (Serge I: 2003-02-03)\
+Найдите средний размер диска ПК каждого из тех производителей, которые выпускают и принтеры.\
+Вывести: maker, средний размер HD.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=27)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT 
+  product.maker, 
+  AVG(pc.hd) AS Avg_hd 
+FROM 
+  product, 
+  pc 
+WHERE 
+  product.model = pc.model 
+  AND product.maker IN (
+    SELECT 
+      DISTINCT maker 
+    FROM 
+      product 
+    WHERE 
+      product.type = 'printer'
+  ) 
+GROUP BY 
+  maker
+```
+
+</details>
+
+Задание 28: (Serge I: 2012-05-04)\
+Используя таблицу Product, определить количество производителей, выпускающих по одной модели.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=28)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT 
+  COUNT(maker) AS qty 
+FROM 
+  product 
+WHERE 
+  maker IN (
+    SELECT 
+      maker 
+    FROM 
+      product 
+    GROUP BY 
+      maker 
+    HAVING 
+      COUNT(model) = 1
+  )
+```
+
+</details>
+
+Задание 29: (Serge I: 2003-02-14)\
+В предположении, что приход и расход денег на каждом пункте приема фиксируется не чаще одного раза в день [т.е. первичный ключ (пункт, дата)], написать запрос с выходными данными (пункт, дата, приход, расход). Использовать таблицы Income_o и Outcome_o.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=29)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT 
+  t1.point, 
+  t1.date, 
+  inc, 
+  out 
+FROM 
+  Income_o t1 
+  LEFT JOIN Outcome_o t2 ON t1.point = t2.point 
+  AND t1.date = t2.date 
+UNION 
+SELECT 
+  t2.point, 
+  t2.date, 
+  inc, 
+  out 
+FROM 
+  Income_o t1 
+  RIGHT JOIN Outcome_o t2 ON t1.point = t2.point 
+  AND t1.date = t2.date
+```
+
+</details>
+
+Задание 30: \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+Задание 31: (Serge I: 2002-10-22)\
+Для классов кораблей, калибр орудий которых не менее 16 дюймов, укажите класс и страну.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=31)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT 
+  DISTINCT class, 
+  country 
+FROM 
+  Classes 
+WHERE 
+  bore >= 16
+```
+
+</details>
+
+Задание 32: \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+Задание 33: (Serge I: 2002-11-02)\
+Укажите корабли, потопленные в сражениях в Северной Атлантике (North Atlantic).\
+Вывод: ship.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=33)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT 
+  ship 
+FROM 
+  Outcomes 
+WHERE 
+  battle = 'North Atlantic' 
+  AND result = 'sunk'
+```
+
+</details>
+
+Задание 34: \
 [(сайт)]()
 
 <details><summary>Решение</summary>
@@ -599,4 +744,81 @@ FROM
 ```
 
 </details>
+
+Задание : \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+Задание : \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+Задание : \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+Задание : \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+Задание : \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+Задание : \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
 
