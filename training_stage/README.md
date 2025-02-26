@@ -929,6 +929,76 @@ GROUP BY
 
 </details>
 
+**Задание 42:** (Serge I: 2002-11-05)\
+Найдите названия кораблей, потопленных в сражениях, и название сражения, в котором они были потоплены.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=42)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT 
+  ship, 
+  battle 
+FROM 
+  Outcomes o 
+  JOIN Battles b ON o.battle = b.name 
+WHERE 
+  result = 'sunk'
+```
+
+</details>
+
+**Задание 43:**  (qwrqwr: 2011-10-28)\
+Укажите сражения, которые произошли в годы, не совпадающие ни с одним из годов спуска кораблей на воду.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=43)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT 
+  name 
+FROM 
+  Battles 
+WHERE 
+  DATEPART(year, date) NOT IN (
+    SELECT 
+      launched 
+    FROM 
+      Ships 
+    WHERE 
+      launched IS NOT NULL
+  )
+```
+
+</details>
+
+**Задание 44:** (Serge I: 2002-12-04)\
+Найдите названия всех кораблей в базе данных, начинающихся с буквы R.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=44)
+
+<details><summary>Решение</summary>
+
+```sql
+SELECT 
+  r.name 
+FROM 
+  (
+    SELECT 
+      Ships.name 
+    FROM 
+      Ships 
+    UNION 
+    SELECT 
+      Outcomes.ship AS name 
+    FROM 
+      Outcomes
+  ) AS r 
+WHERE 
+  r.name LIKE 'R%'
+```
+
+</details>
+
 **Задание :** \
 [(сайт)]()
 
@@ -940,6 +1010,159 @@ GROUP BY
 
 </details>
 
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
+
+**Задание :** \
+[(сайт)]()
+
+<details><summary>Решение</summary>
+
+```sql
+
+```
+
+</details>
 
 
 
