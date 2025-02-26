@@ -1,4 +1,4 @@
-# Решения упражнений по SQL
+ # Решения упражнений по SQL
 Упражнения на оператор SELECT: обучающий этап
 
 Ссылка на задания SQL тренажёра:  
@@ -712,79 +712,169 @@ WHERE
 
 </details>
 
-Задание 34: \
-[(сайт)]()
+Задание 34: (Serge I: 2002-11-04)\
+По Вашингтонскому международному договору от начала 1922 г. запрещалось строить линейные корабли водоизмещением более 35 тыс.тонн. Укажите корабли, нарушившие этот договор (учитывать только корабли c известным годом спуска на воду).\
+Вывести названия кораблей.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=34)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  DISTINCT name 
+FROM 
+  Ships s 
+  JOIN Classes c ON s.class = c.class 
+WHERE 
+  displacement > 35000 
+  AND launched >= 1922 
+  AND type = 'bb'
 ```
 
 </details>
 
-Задание : \
-[(сайт)]()
+Задание 35: (qwrqwr: 2012-11-23)\
+В таблице Product найти модели, которые состоят только из цифр или только из латинских букв (A-Z, без учета регистра).\
+Вывод: номер модели, тип модели.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=35)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  model, 
+  type 
+FROM 
+  product 
+WHERE 
+  model NOT LIKE '%[^0-9]%' 
+  OR upper(model) NOT LIKE '%[^A-Z]%'
 ```
 
 </details>
 
-Задание : \
-[(сайт)]()
+Задание 36: (Serge I: 2003-02-17)\
+Перечислите названия головных кораблей, имеющихся в базе данных (учесть корабли в Outcomes).\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=36)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  name 
+FROM 
+  Ships 
+WHERE 
+  name = class 
+UNION 
+SELECT 
+  ship AS name 
+FROM 
+  Outcomes 
+  JOIN Classes ON Outcomes.ship = Classes.class
 ```
 
 </details>
 
-Задание : \
-[(сайт)]()
+Задание 37: (Serge I: 2003-02-17)\
+Найдите классы, в которые входит только один корабль из базы данных (учесть также корабли в Outcomes).\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=37)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  c.class 
+FROM 
+  Classes c 
+  LEFT JOIN (
+    SELECT 
+      class, 
+      name 
+    FROM 
+      Ships 
+    UNION 
+    SELECT 
+      Classes.class AS class, 
+      Outcomes.ship AS name 
+    FROM 
+      Outcomes 
+      JOIN Classes ON Outcomes.ship = Classes.class
+  ) AS s ON c.class = s.class 
+GROUP BY 
+  c.class 
+HAVING 
+  COUNT(s.name)= 1
 ```
 
 </details>
 
-Задание : \
+Задание 38: (Serge I: 2003-02-19)\
+Найдите страны, имевшие когда-либо классы обычных боевых кораблей ('bb') и имевшие когда-либо классы крейсеров ('bc').\
 [(сайт)]()
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  country 
+FROM 
+  Classes 
+GROUP BY 
+  country 
+HAVING 
+  COUNT(DISTINCT type) > 1
 ```
 
 </details>
 
-Задание : \
-[(сайт)]()
+Задание 39: (Serge I: 2003-02-14)\
+Найдите корабли, `сохранившиеся для будущих сражений`; т.е. выведенные из строя в одной битве (damaged), они участвовали в другой, произошедшей позже.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=39)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  DISTINCT o.ship 
+FROM 
+  Outcomes o, 
+  Battles b 
+WHERE 
+  o.battle = b.name 
+  AND o.ship IN (
+    SELECT 
+      o1.ship 
+    FROM 
+      Outcomes o1, 
+      Battles b1 
+    WHERE 
+      o1.battle = b1.name 
+      AND o1.result = 'damaged' 
+      AND b.date > b1.date
+  )
 ```
 
 </details>
 
-Задание : \
-[(сайт)]()
+Задание 40: (Serge I: 2012-04-20)\
+Найти производителей, которые выпускают более одной модели, при этом все выпускаемые производителем модели являются продуктами одного типа.
+Вывести: maker, type\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=40)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  maker, 
+  MAX(type) AS type 
+FROM 
+  product 
+GROUP BY 
+  maker 
+HAVING 
+  COUNT(model) > 1 
+  AND COUNT(DISTINCT type) = 1
 ```
 
 </details>
