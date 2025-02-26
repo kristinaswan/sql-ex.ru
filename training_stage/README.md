@@ -515,18 +515,59 @@ WHERE
 
 </details>
 
-Задание : \
-[(сайт)]()
+Задание 26: (Serge I: 2003-02-14)\
+Найдите среднюю цену ПК и ПК-блокнотов, выпущенных производителем A (латинская буква).\
+Вывести: одна общая средняя цена.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=26)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT
+  AVG(price) 
+FROM 
+  (
+    SELECT
+      code, 
+      price, 
+      laptop.model, 
+      ram, 
+      hd 
+    FROM 
+      laptop 
+    WHERE 
+      model IN (
+        SELECT 
+          model 
+        FROM 
+          product 
+        WHERE 
+          maker = 'A'
+      ) 
+    UNION 
+    SELECT 
+      code, 
+      price, 
+      pc.model, 
+      ram, 
+      hd 
+    FROM 
+      pc 
+    WHERE 
+      model IN (
+        SELECT 
+          model 
+        FROM 
+          product 
+        WHERE 
+          maker = 'A'
+      )
+  ) AS a
 ```
 
 </details>
 
-Задание : \
+Задание 27: \
 [(сайт)]()
 
 <details><summary>Решение</summary>
