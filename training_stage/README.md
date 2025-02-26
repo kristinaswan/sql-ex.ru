@@ -2,7 +2,7 @@
 Упражнения на оператор SELECT: обучающий этап
 
 Ссылка на задания SQL тренажёра:  
-[https://sql-academy.org/ru/trainer](https://www.sql-ex.ru/learn_exercises.php)
+[https://www.sql-ex.ru/](https://www.sql-ex.ru/)
 
 Задание: 1 (Serge I: 2002-09-30)\
 Найдите номер модели, скорость и размер жесткого диска для всех ПК стоимостью менее 500 дол.\
