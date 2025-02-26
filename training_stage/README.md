@@ -999,73 +999,209 @@ WHERE
 
 </details>
 
-**Задание :** \
-[(сайт)]()
+**Задание 45:**  (Serge I: 2002-12-04)\
+Найдите названия всех кораблей в базе данных, состоящие из трех и более слов (например, King George V).\
+Считать, что слова в названиях разделяются единичными пробелами, и нет концевых пробелов.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=45)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  r.name 
+FROM 
+  (
+    SELECT 
+      Ships.name 
+    FROM 
+      Ships 
+    UNION 
+    SELECT 
+      Outcomes.ship 
+    FROM 
+      Outcomes
+  ) r 
+WHERE 
+  r.name LIKE '% % %'
 ```
 
 </details>
 
-**Задание :** \
-[(сайт)]()
+**Задание 46:** (Serge I: 2003-02-14)\
+Для каждого корабля, участвовавшего в сражении при Гвадалканале (Guadalcanal), вывести название, водоизмещение и число орудий.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=46)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  o.ship, 
+  displacement, 
+  numGuns 
+FROM 
+  (
+    SELECT 
+      name, 
+      displacement, 
+      numGuns 
+    FROM 
+      Ships s 
+      JOIN Classes c ON s.class = c.class 
+    UNION 
+    SELECT 
+      class AS name, 
+      displacement, 
+      numGuns 
+    FROM 
+      Classes
+  ) as r 
+  RIGHT JOIN Outcomes o ON r.name = o.ship 
+WHERE 
+  o.battle = 'Guadalcanal'
 ```
 
 </details>
 
-**Задание :** \
-[(сайт)]()
+**Задание 47:** (Serge I: 2019-06-07)\
+Определить страны, которые потеряли в сражениях все свои корабли.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=47)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+WITH sh AS (
+  SELECT 
+    c.country, 
+    s.name 
+  FROM 
+    classes c 
+    JOIN ships s ON c.class = s.class 
+  UNION 
+  SELECT 
+    c.country, 
+    o.ship 
+  FROM 
+    outcomes o 
+    JOIN classes c ON c.class = o.ship
+), 
+shs AS (
+  SELECT 
+    country, 
+    count(*) AS total 
+  FROM 
+    sh 
+    LEFT JOIN outcomes o ON sh.name = o.ship 
+  WHERE 
+    result = 'sunk' 
+  GROUP BY 
+    country
+), 
+sht AS (
+  SELECT 
+    country, 
+    count(*) AS total 
+  FROM 
+    sh 
+  GROUP BY 
+    country
+) 
+SELECT 
+  x.country 
+FROM 
+  sht x 
+  JOIN shs y ON x.country = y.country 
+WHERE 
+  x.total = y.total
 ```
 
 </details>
 
-**Задание :** \
-[(сайт)]()
+**Задание 48:**  (Serge I: 2003-02-16)\
+Найдите классы кораблей, в которых хотя бы один корабль был потоплен в сражении.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=48)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  c.class 
+FROM 
+  Classes c 
+  LEFT JOIN Ships s ON c.class = s.class 
+WHERE 
+  c.class IN (
+    SELECT 
+      ship 
+    FROM 
+      Outcomes 
+    WHERE 
+      result = 'sunk'
+  ) 
+  OR s.name IN (
+    SELECT 
+      ship 
+    FROM 
+      Outcomes 
+    WHERE 
+      result = 'sunk'
+  ) 
+GROUP BY 
+  c.class
 ```
 
 </details>
 
-**Задание :** \
-[(сайт)]()
+**Задание 49:** (Serge I: 2003-02-17)\
+Найдите названия кораблей с орудиями калибра 16 дюймов (учесть корабли из таблицы Outcomes).\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=49)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  name 
+FROM 
+  Classes c 
+  JOIN Ships s ON c.class = s.class 
+WHERE 
+  bore = '16.0' 
+UNION 
+SELECT 
+  ship 
+FROM 
+  Outcomes o 
+  JOIN Classes c ON o.ship = c.class 
+WHERE 
+  bore = '16.0'
 ```
 
 </details>
 
-**Задание :** \
-[(сайт)]()
+**Задание 50:** (Serge I: 2002-11-05)\
+Найдите сражения, в которых участвовали корабли класса Kongo из таблицы Ships.\
+[(сайт)](https://www.sql-ex.ru/learn_exercises.php?LN=50)
 
 <details><summary>Решение</summary>
 
 ```sql
-
+SELECT 
+  DISTINCT battle 
+FROM 
+  Outcomes 
+WHERE 
+  ship IN (
+    SELECT 
+      name 
+    FROM 
+      Ships 
+    WHERE 
+      class = 'Kongo'
+  )
 ```
 
 </details>
 
-**Задание :** \
+**Задание 51:** \
 [(сайт)]()
 
 <details><summary>Решение</summary>
